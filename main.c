@@ -94,8 +94,10 @@ int format_hash(char *format)
 {
 	char c;
 	int brackets;
+	int quotes;
 	unsigned int hash;
 	brackets=0;
+	quotes=0;
 	hash=301;
 	while(c=*format)
 	{
@@ -107,7 +109,11 @@ int format_hash(char *format)
 		{
 			--brackets;
 		}
-		else if(!brackets)
+		else if(c=='\'')
+		{
+			quotes^=1;
+		}
+		else if(!brackets&&!quotes)
 		{
 			if(c=='*')
 			{
